@@ -127,7 +127,28 @@ const detailFilmu = document.querySelector("#detail-filmu");
 detailFilmu.innerHTML = "";
 
 if (vybranyFilm) {
-	const {plakat, nazev, popis} = vybranyFilm;
+	const {plakat, nazev, popis, premiera} = vybranyFilm;
+
+	const datumPremiery = dayjs(`${premiera}`).format("D. M. YYYY");
+	const dnyOdPremiery = dayjs(`${premiera}`).diff(dayjs(), 'days');
+	let text = 0;
+
+	if (dnyOdPremiery > 0) {
+		if (dnyOdPremiery === 1) {
+			text = `bude za 1 den`
+		} else if (dnyOdPremiery > 1 && dnyOdPremiery <= 4) {
+			text = `bude za ${dnyOdPremiery} dny`
+		} else if (dnyOdPremiery > 4) {
+			text = `bude za ${dnyOdPremiery} dní`
+		}
+	} else if (dnyOdPremiery < 0) {
+		if (dnyOdPremiery === -1) {
+			text = `bylo před 1 dnem`
+		} else if (dnyOdPremiery < 1) {
+			text = `bylo před ${dnyOdPremiery * -1} dny`
+	} else if (dnyOdPremiery === 0) {
+		text = "je dnes"
+	}};
 
 	detailFilmu.innerHTML += `
 	<div class="row g-0">
@@ -146,8 +167,7 @@ if (vybranyFilm) {
 								<p class="card-text">${popis}</p>
 								<p class="card-text">
 									<small class="text-muted" id="premiera"
-										>Premiéra <strong>24. prosince 2022</strong>, což je za 24
-										dní.</small
+										>Premiéra <strong>${datumPremiery}</strong>, což ${text}.</small
 									>
 								</p>
 								<h6>Hodnocení</h6>
