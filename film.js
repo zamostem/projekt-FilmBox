@@ -103,16 +103,33 @@ const filmy = [
 			'Na zámek v podhůří Krkonoš přijíždí jeho nový majitel Štěpán se svojí snoubenkou, krásnou komtesou Blankou, a mladším bratrem Adamem. Cestou kočár nešťastně srazí kolemjdoucí dívku, Adam jí pomůže a ona se do něj zamiluje. Na zámku Adam objeví starou vlašskou knihu, která by měla obsahovat cestu k pokladům. Tajemné značky vlašské knihy však nedokáže vyluštit ani národopisec Jiráček, který v kraji sbírá pověsti a nevychází z údivu nad tím, že zdejší lidé stále věří v Krakonoše. Na zámku se objeví záhadný cizinec a nabídne Štěpánovi, že jej k pokladu za určitých podmínek dovede. Výprava do hor může začít. Naplní se Liduščina láska k Adamovi? Jakou záhadu skrývá starý obraz na zámku Hůrka a co strašlivého se v horách kdysi odehrálo? A kdo je vlastně Krakonoš a jaké je jeho největší tajemství? (csfd.cz, Česká televize)',
 		premiera: '2022-12-24',
 	},
+	{
+		id: 'zatopek',
+		nazev: 'Zátopek',
+		plakat: {
+			url: 'https://image.pmgstatic.com/cache/resized/w663/files/images/film/posters/165/045/165045758_670cbc.jpg',
+			sirka: 663,
+			vyska: 936,
+		},
+		ochutnavka: 'Životopisný film o Emilu Zátopkovi.',
+		popis:
+			'Australský rekordman Ron Clarke přijíždí v pohnutém roce 1968 do Prahy za legendárním běžcem Emilem Zátopkem, jehož bezmezně obdivuje. V rozhovorech Rona s Emilem se děj filmu retrospektivně vrací do stěžejních momentů atletova sportovního i soukromého života a spojuje se v komplexní portrét muže, jenž neztrácí tempo ani poté, co jeho poslední závod skončí a jenž dokáže bojovat nejen na atletickém oválu. Film vypráví o nezlomné síle vůle, která dodnes inspiruje tisíce sportovců po celém světě. A také o jedinečném vztahu dvou lidí – Emila a Dany Zátopkových – kteří navzdory všem překážkám spolu strávili celý život. (csfd.cz, Česká televize)',
+		premiera: '2021-08-20',
+	},
 ]
 
-// const location = document.getElementById("myAnchor");
+const idFilmu = location.hash.slice(1);
 
-/*const 
-location.hash = id
-id.slice(0)*/
+const vybranyFilm = filmy.find((film) => film.id === idFilmu);
 
-const detailFilmu = document.querySelector("#detail-filmu")
-detailFilmu.innerHTML += `
+const detailFilmu = document.querySelector("#detail-filmu");
+
+detailFilmu.innerHTML = "";
+
+if (vybranyFilm) {
+	const {plakat, nazev, popis} = vybranyFilm;
+
+	detailFilmu.innerHTML += `
 	<div class="row g-0">
 						<div class="col-md-5">
 							<img
@@ -134,79 +151,104 @@ detailFilmu.innerHTML += `
 									>
 								</p>
 								<h6>Hodnocení</h6>
-								<div class="stars">
-									<button
-										class="far fa-star button-star"
-										data-mdb-toggle="tooltip"
-										title="Nic moc"
-									>
-										1
-									</button>
-									<button
-										class="far fa-star button-star"
-										data-mdb-toggle="tooltip"
-										title="Ucházející"
-									>
-										2
-									</button>
-									<button
-										class="far fa-star button-star"
-										data-mdb-toggle="tooltip"
-										title="Dobrý"
-									>
-										3
-									</button>
-									<button
-										class="far fa-star button-star"
-										data-mdb-toggle="tooltip"
-										title="Skvělý"
-									>
-										4
-									</button>
-									<button
-										class="far fa-star button-star"
-										data-mdb-toggle="tooltip"
-										title="Úžasný"
-									>
-										5
-									</button>
-								</div>
+							<div class="stars">
+								<button
+									class="far fa-star button-star"
+									data-mdb-toggle="tooltip"
+									title="Nic moc"
+								>
+									1
+								</button>
+								<button
+									class="far fa-star button-star"
+									data-mdb-toggle="tooltip"
+									title="Ucházející"
+								>
+									2
+								</button>
+								<button
+									class="far fa-star button-star"
+									data-mdb-toggle="tooltip"
+									title="Dobrý"
+								>
+									3
+								</button>
+								<button
+									class="far fa-star button-star"
+									data-mdb-toggle="tooltip"
+									title="Skvělý"
+								>
+									4
+								</button>
+								<button
+									class="far fa-star button-star"
+									data-mdb-toggle="tooltip"
+									title="Úžasný"
+								>
+									5
+								</button>
+							</div>
 
-								<h6 class="mt-4">Poznámka</h6>
-								<form id="note-form">
-									<div class="row">
-										<div class="col-md-6 col-lg-7 col-xl-8 mb-2">
-											<div class="form-outline">
-												<textarea
-													class="form-control"
-													id="message-input"
-													rows="4"
-												></textarea>
-												<label class="form-label" for="message-input"
-													>Text poznámky</label
-												>
-											</div>
-										</div>
-										<div class="col-md-6 col-lg-5 col-xl-4">
-											<div class="form-check d-flex justify-content-center mb-2">
-												<input
-													class="form-check-input me-2 mb-2"
-													type="checkbox"
-													value=""
-													id="terms-checkbox"
-												/>
-												<label class="form-check-label" for="terms-checkbox">
-													Souhlasím se všeobecnými podmínky užívání.
-												</label>
-											</div>
-											<button type="submit" class="btn btn-primary btn-block">
-												Uložit
-											</button>
+							<h6 class="mt-4">Poznámka</h6>
+							<form id="note-form">
+								<div class="row">
+									<div class="col-md-6 col-lg-7 col-xl-8 mb-2">
+										<div class="form-outline">
+											<textarea
+												class="form-control"
+												id="message-input"
+												rows="4"
+											></textarea>
+											<label class="form-label" for="message-input"
+												>Text poznámky</label
+											>
 										</div>
 									</div>
-								</form>
-							</div>
+									<div class="col-md-6 col-lg-5 col-xl-4">
+										<div class="form-check d-flex justify-content-center mb-2">
+											<input
+												class="form-check-input me-2 mb-2"
+												type="checkbox"
+												value=""
+												id="terms-checkbox"
+											/>
+											<label class="form-check-label" for="terms-checkbox">
+												Souhlasím se všeobecnými podmínky užívání.
+											</label>
+										</div>
+										<button type="submit" class="btn btn-primary btn-block">
+											Uložit
+										</button>
+									</div>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
-`
+			</div>
+		</div>
+
+		<!-- Přehrávač -->
+		<div class="container-lg mt-5">
+			<div id="prehravac" class="player rounded shadow-4">
+				<video
+					controls
+					loop
+					preload="auto"
+					poster="https://user-images.githubusercontent.com/1045362/204167262-a16c4755-3d23-400e-b6b0-c9c242399ecf.jpg"
+					width="320"
+					height="180"
+				>
+					<source
+						src="https://user-images.githubusercontent.com/1045362/204137892-c6aee4cd-8cc1-44db-b076-71774d67c7b3.mp4"
+						type="video/mp4"
+					/>
+				</video>
+				<div class="player-controls">
+					<button type="button" class="play fas fa-play">Přehrát</button>
+					<button type="button" class="pause fas fa-pause">Pozastavit</button>
+					<time class="current-time">00:00</time>
+				</div>
+			</div>
+		</div>
+`};

@@ -120,7 +120,7 @@ const filmy = [
 
 const seznamFilmu = document.querySelector("#seznam-filmu");
 
-seznamFilmu.innerHTML = null;
+seznamFilmu.innerHTML = "";
 
 filmy.forEach((film) => {
 	const {plakat, nazev, ochutnavka, id} = film;
