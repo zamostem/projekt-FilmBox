@@ -103,16 +103,29 @@ const filmy = [
 			'Na zámek v podhůří Krkonoš přijíždí jeho nový majitel Štěpán se svojí snoubenkou, krásnou komtesou Blankou, a mladším bratrem Adamem. Cestou kočár nešťastně srazí kolemjdoucí dívku, Adam jí pomůže a ona se do něj zamiluje. Na zámku Adam objeví starou vlašskou knihu, která by měla obsahovat cestu k pokladům. Tajemné značky vlašské knihy však nedokáže vyluštit ani národopisec Jiráček, který v kraji sbírá pověsti a nevychází z údivu nad tím, že zdejší lidé stále věří v Krakonoše. Na zámku se objeví záhadný cizinec a nabídne Štěpánovi, že jej k pokladu za určitých podmínek dovede. Výprava do hor může začít. Naplní se Liduščina láska k Adamovi? Jakou záhadu skrývá starý obraz na zámku Hůrka a co strašlivého se v horách kdysi odehrálo? A kdo je vlastně Krakonoš a jaké je jeho největší tajemství? (csfd.cz, Česká televize)',
 		premiera: '2022-12-24',
 	},
+	{
+		id: 'zatopek',
+		nazev: 'Zátopek',
+		plakat: {
+			url: 'https://image.pmgstatic.com/cache/resized/w663/files/images/film/posters/165/045/165045758_670cbc.jpg',
+			sirka: 663,
+			vyska: 936,
+		},
+		ochutnavka: 'Životopisný film o Emilu Zátopkovi.',
+		popis:
+			'Australský rekordman Ron Clarke přijíždí v pohnutém roce 1968 do Prahy za legendárním běžcem Emilem Zátopkem, jehož bezmezně obdivuje. V rozhovorech Rona s Emilem se děj filmu retrospektivně vrací do stěžejních momentů atletova sportovního i soukromého života a spojuje se v komplexní portrét muže, jenž neztrácí tempo ani poté, co jeho poslední závod skončí a jenž dokáže bojovat nejen na atletickém oválu. Film vypráví o nezlomné síle vůle, která dodnes inspiruje tisíce sportovců po celém světě. A také o jedinečném vztahu dvou lidí – Emila a Dany Zátopkových – kteří navzdory všem překážkám spolu strávili celý život. (csfd.cz, Česká televize)',
+		premiera: '2021-08-20',
+	},
 ];
 
 const seznamFilmu = document.querySelector("#seznam-filmu");
 
-// seznamFilmu.innerHTML = null;
-
-seznamFilmu.innerHTML = "";
+seznamFilmu.innerHTML = null;
 
 filmy.forEach((film) => {
-	film.innerHTML += `
+	const {plakat, nazev, ochutnavka, id} = film;
+
+	seznamFilmu.innerHTML += `
 		<div class="col">
 			<div class="card">
 			<img
