@@ -118,6 +118,9 @@ const filmy = [
 	},
 ]
 
+
+// 5 - DETAIL FILMU, 6 - PREMIÉRA
+
 const idFilmu = location.hash.slice(1);
 const vybranyFilm = filmy.find((film) => film.id === idFilmu);
 
@@ -248,30 +251,94 @@ if (vybranyFilm) {
 			
 `};
 
+
+// 7 - HODNOCENÍ
+
 const hvezdy = document.querySelectorAll(".fa-star")
 
 const hodnoceni = (cislo) => {
 	hvezdy.forEach((hvezda, index) => {
 		if (index <= (cislo - 1)) {
 			hvezda.classList.toggle("fas")
-			hvezda.classList.toggle("far")
 		}
 	});
 };
 
 hvezdy.forEach((hvezda) => {
 	hvezda.addEventListener("click", () => {
-		const vybranaHvezda = hvezda.textContent
+		const vybranaHvezda = Number(hvezda.textContent)
 		hodnoceni(vybranaHvezda)
 	})
 
 	hvezda.addEventListener("mouseenter", () => {
-		const vybranaHvezda = hvezda.textContent
-		hodnoceni(vybranaHvezda)
+		const noveHodnoceni = Number(hvezda.textContent)
+		hodnoceni(noveHodnoceni)
 	})
 
 	hvezda.addEventListener("mouseleave", () => {
-		const vybranaHvezda = hvezda.textContent
-		hodnoceni(vybranaHvezda)
+		const posledniHodnoceni = Number(hvezda.textContent)
+		hodnoceni(posledniHodnoceni)
 	})
 });
+
+
+// 8 - POZNÁMKA
+const poznamka = document.querySelector("#note-form")
+const textovePole = document.querySelector("#message-input")
+const souhlasPole = document.querySelector("#terms-checkbox")
+
+poznamka.addEventListener("submit", (e) => {
+	e.preventDefault()
+
+	if (textovePole.value === "") {
+		textovePole.classList.add("is-invalid")
+		textovePole.style.border = "1px solid red"
+		textovePole.focus()
+	} else {
+		if (!souhlasPole.checked) {
+			souhlasPole.classList.add("is-invalid")
+			souhlasPole.focus()
+		} else {
+			const textPoznamky = textovePole.value
+			poznamka.innerHTML = `<p class="card-text">${textPoznamky}</p>`
+		}
+	}
+})
+
+
+// 9 - OVLÁDÁNÍ PŘEHRÁVAČE
+
+const prehravacElm = document.querySelector("#prehravac")
+const videoElm = document.querySelector("video")
+const playElm = document.querySelector(".play")
+const pauseElm = document.querySelector(".pause")
+const currentTimeElm = document.querySelector(".current-time")
+
+playElm.addEventListener("click", () => {
+	videoElm.play()
+})
+
+videoElm.addEventListener("playing", () => {
+	prehravacElm.classList.add("playing")
+})
+
+pauseElm.addEventListener("click", () => {
+	videoElm.pause()
+	prehravacElm.classList.remove("playing")
+})
+
+/*
+currentTimeElm.addEventListener("timeupdate", () => {
+	let seconds = Math.floor(videoElm.currentTime);
+	let minutes = Math.floor(seconds / 60);
+	seconds = seconds % 60;
+
+	currentTimeElm.innerHTML = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`
+});
+*/
+
+
+
+
+
+

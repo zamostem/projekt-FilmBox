@@ -118,6 +118,8 @@ const filmy = [
 	},
 ];
 
+// 4 - SEZNAM FILMŮ
+
 const seznamFilmu = document.querySelector("#seznam-filmu");
 
 seznamFilmu.innerHTML = "";
