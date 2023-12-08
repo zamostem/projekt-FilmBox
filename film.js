@@ -119,11 +119,9 @@ const filmy = [
 ]
 
 const idFilmu = location.hash.slice(1);
-
 const vybranyFilm = filmy.find((film) => film.id === idFilmu);
 
 const detailFilmu = document.querySelector("#detail-filmu");
-
 detailFilmu.innerHTML = "";
 
 if (vybranyFilm) {
@@ -146,7 +144,7 @@ if (vybranyFilm) {
 			text = `bylo před 1 dnem`
 		} else if (dnyOdPremiery < 1) {
 			text = `bylo před ${dnyOdPremiery * -1} dny`
-	} else if (dnyOdPremiery === 0) {
+		} else if (dnyOdPremiery === 0) {
 		text = "je dnes"
 	}};
 
@@ -247,28 +245,33 @@ if (vybranyFilm) {
 				</div>
 			</div>
 		</div>
-
-		<!-- Přehrávač -->
-		<div class="container-lg mt-5">
-			<div id="prehravac" class="player rounded shadow-4">
-				<video
-					controls
-					loop
-					preload="auto"
-					poster="https://user-images.githubusercontent.com/1045362/204167262-a16c4755-3d23-400e-b6b0-c9c242399ecf.jpg"
-					width="320"
-					height="180"
-				>
-					<source
-						src="https://user-images.githubusercontent.com/1045362/204137892-c6aee4cd-8cc1-44db-b076-71774d67c7b3.mp4"
-						type="video/mp4"
-					/>
-				</video>
-				<div class="player-controls">
-					<button type="button" class="play fas fa-play">Přehrát</button>
-					<button type="button" class="pause fas fa-pause">Pozastavit</button>
-					<time class="current-time">00:00</time>
-				</div>
-			</div>
-		</div>
+			
 `};
+
+const hvezdy = document.querySelectorAll(".fa-star")
+
+const hodnoceni = (cislo) => {
+	hvezdy.forEach((hvezda, index) => {
+		if (index <= (cislo - 1)) {
+			hvezda.classList.toggle("fas")
+			hvezda.classList.toggle("far")
+		}
+	});
+};
+
+hvezdy.forEach((hvezda) => {
+	hvezda.addEventListener("click", () => {
+		const vybranaHvezda = hvezda.textContent
+		hodnoceni(vybranaHvezda)
+	})
+
+	hvezda.addEventListener("mouseenter", () => {
+		const vybranaHvezda = hvezda.textContent
+		hodnoceni(vybranaHvezda)
+	})
+
+	hvezda.addEventListener("mouseleave", () => {
+		const vybranaHvezda = hvezda.textContent
+		hodnoceni(vybranaHvezda)
+	})
+});
