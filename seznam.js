@@ -120,14 +120,14 @@ const filmy = [
 
 // 4 - SEZNAM FILMŮ
 
-const seznamFilmu = document.querySelector("#seznam-filmu");
+const seznamFilmuElm = document.querySelector("#seznam-filmu");
 
-seznamFilmu.innerHTML = "";
+seznamFilmuElm.innerHTML = "";
 
 filmy.forEach((film) => {
 	const {plakat, nazev, ochutnavka, id} = film;
 
-	seznamFilmu.innerHTML += `
+	seznamFilmuElm.innerHTML += `
 		<div class="col">
 			<div class="card">
 			<img

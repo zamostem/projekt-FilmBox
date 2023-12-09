@@ -124,8 +124,8 @@ const filmy = [
 const idFilmu = location.hash.slice(1);
 const vybranyFilm = filmy.find((film) => film.id === idFilmu);
 
-const detailFilmu = document.querySelector("#detail-filmu");
-detailFilmu.innerHTML = "";
+const detailFilmuElm = document.querySelector("#detail-filmu");
+detailFilmuElm.innerHTML = "";
 
 if (vybranyFilm) {
 	const {plakat, nazev, popis, premiera} = vybranyFilm;
@@ -151,7 +151,7 @@ if (vybranyFilm) {
 		text = "je dnes"
 	}};
 
-	detailFilmu.innerHTML += `
+	detailFilmuElm.innerHTML += `
 	<div class="row g-0">
 						<div class="col-md-5">
 							<img
@@ -254,89 +254,115 @@ if (vybranyFilm) {
 
 // 7 - HODNOCENÍ
 
-const hvezdy = document.querySelectorAll(".fa-star")
+const hvezdyElm = document.querySelectorAll(".fa-star");
 
 const hodnoceni = (cislo) => {
-	hvezdy.forEach((hvezda, index) => {
+	hvezdyElm.forEach((hvezdaElm, index) => {
 		if (index <= (cislo - 1)) {
-			hvezda.classList.toggle("fas")
+			hvezdaElm.classList.toggle("fas")
 		}
 	});
 };
 
-hvezdy.forEach((hvezda) => {
-	hvezda.addEventListener("click", () => {
-		const vybranaHvezda = Number(hvezda.textContent)
+hvezdyElm.forEach((hvezdaElm) => {
+	hvezdaElm.addEventListener("click", () => {
+		const vybranaHvezda = Number(hvezdaElm.textContent)
 		hodnoceni(vybranaHvezda)
-	})
+	});
 
-	hvezda.addEventListener("mouseenter", () => {
-		const noveHodnoceni = Number(hvezda.textContent)
+	hvezdaElm.addEventListener("mouseenter", () => {
+		const noveHodnoceni = Number(hvezdaElm.textContent)
 		hodnoceni(noveHodnoceni)
-	})
+	});
 
-	hvezda.addEventListener("mouseleave", () => {
-		const posledniHodnoceni = Number(hvezda.textContent)
+	hvezdaElm.addEventListener("mouseleave", () => {
+		const posledniHodnoceni = Number(hvezdaElm.textContent)
 		hodnoceni(posledniHodnoceni)
-	})
+	});
 });
 
 
 // 8 - POZNÁMKA
-const poznamka = document.querySelector("#note-form")
-const textovePole = document.querySelector("#message-input")
-const souhlasPole = document.querySelector("#terms-checkbox")
+const poznamkaElm = document.querySelector("#note-form");
+const textovePoleElm = document.querySelector("#message-input");
+const souhlasPoleElm = document.querySelector("#terms-checkbox");
 
-poznamka.addEventListener("submit", (e) => {
-	e.preventDefault()
+poznamkaElm.addEventListener("submit", (e) => {
+	e.preventDefault();
 
-	if (textovePole.value === "") {
-		textovePole.classList.add("is-invalid")
-		textovePole.style.border = "1px solid red"
-		textovePole.focus()
+	if (textovePoleElm.value === "") {
+		textovePoleElm.classList.add("is-invalid")
+		textovePoleElm.style.border = "1px solid red"
+		textovePoleElm.focus()
 	} else {
-		if (!souhlasPole.checked) {
-			souhlasPole.classList.add("is-invalid")
-			souhlasPole.focus()
+		if (!souhlasPoleElm.checked) {
+			souhlasPoleElm.classList.add("is-invalid")
+			souhlasPoleElm.focus()
 		} else {
-			const textPoznamky = textovePole.value
-			poznamka.innerHTML = `<p class="card-text">${textPoznamky}</p>`
-		}
-	}
-})
+			const textPoznamky = textovePoleElm.value
+			poznamkaElm.innerHTML = `<p class="card-text">${textPoznamky}</p>`
+		};
+	};
+});
 
 
 // 9 - OVLÁDÁNÍ PŘEHRÁVAČE
 
-const prehravacElm = document.querySelector("#prehravac")
-const videoElm = document.querySelector("video")
-const playElm = document.querySelector(".play")
-const pauseElm = document.querySelector(".pause")
-const currentTimeElm = document.querySelector(".current-time")
+const prehravacElm = document.querySelector("#prehravac");
+const videoElm = document.querySelector("video");
+const playElm = document.querySelector(".play");
+const pauseElm = document.querySelector(".pause");
+const currentTimeElm = document.querySelector(".current-time");
 
 playElm.addEventListener("click", () => {
 	videoElm.play()
-})
+});
 
 videoElm.addEventListener("playing", () => {
 	prehravacElm.classList.add("playing")
-})
+});
 
 pauseElm.addEventListener("click", () => {
 	videoElm.pause()
 	prehravacElm.classList.remove("playing")
-})
+});
 
-/*
-currentTimeElm.addEventListener("timeupdate", () => {
-	let seconds = Math.floor(videoElm.currentTime);
+/*currentTimeElm.addEventListener("timeupdate", () => {
+	console.log("Funguju!");
+	let time = videoElm.currentTime;
+	let seconds = Math.floor(time);
 	let minutes = Math.floor(seconds / 60);
 	seconds = seconds % 60;
 
 	currentTimeElm.innerHTML = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`
-});
-*/
+});*/
 
+setInterval(() => {
+    let time = videoElm.currentTime;
+    let seconds = Math.floor(time);
+    let minutes = Math.floor(seconds / 60);
+    seconds = seconds % 60;
+
+    currentTimeElm.innerHTML = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+}, 1000);
+
+prehravacElm.addEventListener("keydown", (e) => {
+	console.log("Key pressed:", e.key);
+    console.log("Video paused:", videoElm.paused);
+
+	if(
+		e.code === "Space" &&
+  		e.target.tagName !== "TEXTAREA" &&
+ 		e.target.tagName !== "INPUT" &&
+  		e.target.tagName !== "BUTTON"
+		) {
+		if (videoElm.paused) {
+			videoElm.play();
+		} else {
+			videoElm.pause();
+		};
+	};
+});
 
 
 
