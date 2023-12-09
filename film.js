@@ -258,26 +258,35 @@ const hvezdyElm = document.querySelectorAll(".fa-star");
 
 const hodnoceni = (cislo) => {
 	hvezdyElm.forEach((hvezdaElm, index) => {
-		if (index <= (cislo - 1)) {
-			hvezdaElm.classList.toggle("fas")
+		if (index + 1 <= cislo) {
+			hvezdaElm.classList.remove('far');
+			hvezdaElm.classList.add('fas');
+		} else {
+			hvezdaElm.classList.remove('fas');
+			hvezdaElm.classList.add('far');
 		}
 	});
 };
 
+let posledniHodnoceni = null;
+let vybranaHvezda = null;
+
 hvezdyElm.forEach((hvezdaElm) => {
 	hvezdaElm.addEventListener("click", () => {
-		const vybranaHvezda = Number(hvezdaElm.textContent)
-		hodnoceni(vybranaHvezda)
+		vybranaHvezda = Number(hvezdaElm.textContent);
+		hodnoceni(vybranaHvezda);
+		posledniHodnoceni = vybranaHvezda;
+		console.log(`Uživatel kliknul na hvězdu číslo ${vybranaHvezda}`);
 	});
-
+	
 	hvezdaElm.addEventListener("mouseenter", () => {
-		const noveHodnoceni = Number(hvezdaElm.textContent)
-		hodnoceni(noveHodnoceni)
+		vybranaHvezda = Number(hvezdaElm.textContent);
+		hodnoceni(vybranaHvezda);
 	});
 
 	hvezdaElm.addEventListener("mouseleave", () => {
-		const posledniHodnoceni = Number(hvezdaElm.textContent)
-		hodnoceni(posledniHodnoceni)
+		console.log(`posledniHodnoceni: ${posledniHodnoceni}`);
+		hodnoceni(posledniHodnoceni);
 	});
 });
 
