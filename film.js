@@ -315,7 +315,7 @@ poznamkaElm.addEventListener("submit", (e) => {
 });
 
 
-// 9 - OVLÁDÁNÍ PŘEHRÁVAČE
+// 9 - OVLÁDÁNÍ PŘEHRÁVAČE - nedokončené
 
 const prehravacElm = document.querySelector("#prehravac");
 const videoElm = document.querySelector("video");
@@ -336,7 +336,8 @@ pauseElm.addEventListener("click", () => {
 	prehravacElm.classList.remove("playing")
 });
 
-/*currentTimeElm.addEventListener("timeupdate", () => {
+/*
+currentTimeElm.addEventListener("timeupdate", () => {
 	console.log("Funguju!");
 	let time = videoElm.currentTime;
 	let seconds = Math.floor(time);
@@ -344,7 +345,8 @@ pauseElm.addEventListener("click", () => {
 	seconds = seconds % 60;
 
 	currentTimeElm.innerHTML = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`
-});*/
+});
+*/
 
 setInterval(() => {
     let time = videoElm.currentTime;
@@ -356,7 +358,7 @@ setInterval(() => {
 }, 1000);
 
 prehravacElm.addEventListener("keydown", (e) => {
-	console.log("Key pressed:", e.key);
+	console.log("Klávesa:", e.key);
     console.log("Video paused:", videoElm.paused);
 
 	if(
